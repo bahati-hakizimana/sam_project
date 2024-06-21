@@ -1,5 +1,6 @@
 import React from "react";
 import { FaUserCircle } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 import { MenuLinks } from "./Navbar";
 
@@ -22,7 +23,10 @@ const ResponsiveMenu = ({ showMenu }) => {
                 </a>
               </li>
             ))}
-            <button className="primary-btn">Login</button>
+            <Link className="primary-btn" to="/login">
+            Login
+            </Link>
+            
           </ul>
         </nav>
       </div>

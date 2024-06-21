@@ -3,6 +3,7 @@ import { HiMenuAlt3, HiMenuAlt1 } from "react-icons/hi";
 import ResponsiveMenu from "./ResponsiveMenu";
 import Logo from "../../assets/website/Officehub.jpeg";
 import DarkMode from "./DarkMode";
+import { Link } from 'react-router-dom';
 
 export const MenuLinks = [
   {
@@ -83,13 +84,12 @@ const Navbar = ({ handleLoginPopup }) => {
                   </a>
                 </li>
               ))}
-              <a
-                    href="#"
-                    onClick={handleLoginPopup}
+              <Link
+                   to='/login' 
                     className="text-gray-700 hover:text-gray-900 px-4 py-4 inline-block select-none"
                   >
                     <button className="primary-btn">Login</button>
-                  </a>
+                  </Link>
               
               <DarkMode />
             </ul>
