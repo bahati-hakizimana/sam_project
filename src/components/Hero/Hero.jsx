@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -20,6 +21,7 @@ const Hero = () => {
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, sunt. Obcaecati quod architecto quas corporis accusamus rerum, 
             aperiam dolore dolorem optio voluptas quae libero quam eveniet vero non, cumque harum!
             </p>
+            <Link to="/login">
             <button
               data-aos="fade-up"
               data-aos-delay="500"
@@ -27,8 +29,10 @@ const Hero = () => {
               className="primary-btn"
               
             >
-              Learn More
+              Getstarted
             </button>
+            </Link>
+           
           </div>
         </div>
       </div>

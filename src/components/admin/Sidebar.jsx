@@ -7,6 +7,9 @@ import { MdOutlineNotificationsActive } from "react-icons/md";
 import { GiParkBench } from "react-icons/gi";
 import { TbReportAnalytics } from "react-icons/tb";
 import { IoIosArrowDown, IoIosArrowForward } from 'react-icons/io';
+import { AiFillSound } from "react-icons/ai";
+import { MdCoPresent } from "react-icons/md";
+import { GrSchedules } from "react-icons/gr";
 
 function Sidebar() {
   const [activeLink, setActiveLink] = useState(null);
@@ -22,16 +25,16 @@ function Sidebar() {
 
   const Sidebar_Links = [
     { id: 1, name: 'Dashboard', path: '/admin', icon: <MdDashboard /> },
+    { id: 1, name: 'SaveySchedure', path: '/admin/saveyschedure', icon: <GrSchedules /> },
     {
       id: 2,
-      name: 'Users',
-      path: '/admin/users',
+      name: 'Tenant Management',
       icon: <FaUsers />,
       children: [
-        { id: 21, name: 'Employees', path: '/admin/users/employees', icon: <FaUsers /> },
-        { id: 22, name: 'Tenants', path: '/admin/users/tenants', icon: <FaUsers /> },
-        { id: 23, name: 'Inactive Users', path: '/admin/users/inactive', icon: <FaUsers /> },
-        { id: 24, name: 'Add User', path: '/admin/users/add', icon: <FaUsers /> },
+        { id: 21, name: 'Employees', path: '/admin/employees', icon: <FaUsers /> },
+        { id: 22, name: 'Tenants', path: '/admin/tenants', icon: <FaUsers /> },
+        { id: 23, name: 'Attendance', path: '/admin/attendance', icon: <MdCoPresent /> },
+        { id: 24, name: 'Announcement', path: '/admin/announcements', icon: <AiFillSound /> },
       ]
     },
     { id: 3, name: 'Notifications', path: '/admin/notifications', icon: <MdOutlineNotificationsActive /> },

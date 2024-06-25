@@ -8,6 +8,11 @@ import Layout from "./components/admin/Layout";
 import Notification from "./components/admin/pages/Notification"
 import BenchMarks from "./components/admin/pages/BenchMarks"
 import Report from "./components/admin/pages/Report"
+import Employees from "./components/admin/pages/Employees"
+import SaveySchedure from "./components/admin/pages/SaveySchedure"
+import Tenants from "./components/admin/pages/Tenants"
+import Attendance from "./components/admin/pages/Attendance"
+import Announcement from "./components/admin/pages/Announcement"
 import Users from './components/admin/pages/Users';
 import Tenant_Layout from './components/tenant/Tenant_Layout'
 
@@ -26,6 +31,11 @@ function App() {
         <Route path='/admin/notifications' element={<Notification />} />
         <Route path='/admin/benchmarks' element={<BenchMarks />} />
         <Route path='/admin/report' element={<Report />} />
+        <Route path='/admin/employees' element={<Employees />} />
+        <Route path='/admin/saveyschedure' element={<SaveySchedure />} />
+        <Route path='/admin/tenants' element={<Tenants />} />
+        <Route path='/admin/attendance' element={<Attendance />} />
+        <Route path='/admin/announcements' element={<Announcement />} />
         </Route>
 
         {/* Tenant Routes */}

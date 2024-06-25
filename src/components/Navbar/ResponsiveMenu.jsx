@@ -23,6 +23,12 @@ const ResponsiveMenu = ({ showMenu }) => {
                 </a>
               </li>
             ))}
+            <Link className="primary-btn" to="/admin">
+            Admin
+            </Link>
+            <Link className="primary-btn" to="/tenant">
+            Tenant
+            </Link>
             <Link className="primary-btn" to="/login">
             Login
             </Link>
