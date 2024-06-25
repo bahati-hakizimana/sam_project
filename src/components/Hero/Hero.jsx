@@ -2,7 +2,7 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <div className=" dark:text-white duration-300 clip-right-diagonal bg-[url('assets/website/cityTower.jpg')] bg-cover ">
+    <div className=" dark:text-white duration-300 clip-right-diagonal bg-[url('assets/website/Runway.png')] bg-cover ">
       <div className="container min-h-[620px] flex mt-10 sm:mt-0">
         <div className="flex items-center justify-center">
 

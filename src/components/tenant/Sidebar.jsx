@@ -1,53 +1,38 @@
 import React, { useState } from 'react';
-import { FaUsers, FaRegFilePdf, FaFileExcel } from 'react-icons/fa';
 import { MdDashboard } from 'react-icons/md';
-import { BiSolidInstitution } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
-import Logo from '../../assets/police_image/logo_lil.jpeg';
-import { IoIosArrowDown, IoIosArrowForward } from 'react-icons/io';
-import { FaSchool } from "react-icons/fa";
-import { FaUniversity } from "react-icons/fa";
-import { MdOutlinePolicy } from "react-icons/md";
-import { FcDepartment } from "react-icons/fc";
-import { FaCommentDots } from "react-icons/fa";
+import Logo from '../../assets/website/officehub.jpeg';
+import { MdDynamicFeed } from "react-icons/md";
+import { FaRegSave } from "react-icons/fa";
+import { MdForum } from "react-icons/md";
+import { FaQuestionCircle } from "react-icons/fa";
+import { TfiSupport } from "react-icons/tfi";
+
 
 function Sidebar() {
   const [activeLink, setActiveLink] = useState(null);
-  const [isInstitutionOpen, setIsInstitutionOpen] = useState(false);
 
   const handleLinkClick = (index) => {
     setActiveLink(index);
-    // if (index === 2) {
-    //   setIsInstitutionOpen(!isInstitutionOpen);
-    // } else {
-    //   setIsInstitutionOpen(false);
-    // }
+    
   };
 
   const Sidebar_Links = [
-    { id: 1, name: 'Dashboard', path: '/user', icon: <MdDashboard /> },
-    { id: 2, name: 'Users', path: '/user/users', icon: <FaUsers /> },
-    {
-      id: 3, 
-      name: 'Institution',
-      path:"/user/instutitions", 
-      icon: <BiSolidInstitution />,
-    },
-    
-    { id: 4, name: 'Departments', path: '/user/departiments', icon: <FcDepartment />
-    
-    },
-    { id: 5, name: 'Policies', path: '/user/policies', icon: <MdOutlinePolicy /> },
-    { id: 6, name: 'Coments', path: '/user/coments', icon: <FaCommentDots /> },
-    // { id: 7, name: 'Excel', path: '/user/excel', icon: <FaFileExcel /> },
+    // { id: 1, name: 'Dashboard', path: '/tenant', icon: <MdDashboard /> },
+    { id: 2, name: 'Feedback', path: '/tenant/feedback', icon: <MdDynamicFeed /> },
+    { id: 3, name: 'Saveys', path: '/tenant/saveys', icon: <FaRegSave /> },
+    { id: 4, name: 'CommunityForum', path: '/tenant/forum', icon: <MdForum /> },
+    { id: 4, name: 'FAQs', path: '/tenant/faqs', icon: <FaQuestionCircle /> },
+    { id: 4, name: 'SupportResourse', path: '/tenant/resourse', icon: <TfiSupport/> },
+  
   ];
 
   return (
 
     <div className='w-16 md:w-56 fixed left-0 top-0 z-10 border-r h-screen pt-8 px-4 bg-white shadow-md'>
     <div className='mb-8 flex justify-center md:block'>
-      <img src={Logo} alt='Logo' className='w-10 md:w-20' />
-    </div>
+        <img src={Logo} alt='Logo' className='w-10 md:w-20' />
+      </div>
     <ul className='mt-6 space-y-6'>
       {Sidebar_Links.map((link, index) => (
         <li key={index} className='relative'>

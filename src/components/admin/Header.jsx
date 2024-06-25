@@ -13,16 +13,8 @@ const Header = () => {
     <div className='flex justify-between items-center p-4 bg-white shadow-md'>
       <div>
         <h1 className='text-xs text-gray-500'>Welcome Back!</h1>
-        <p className='text-xl text-black font-semibold'>Liliyan</p>
       </div>
       <div className='flex items-center space-x-5'>
-        <div className='hidden md:flex'>
-          <input
-            type='text'
-            placeholder='Search...'
-            className='bg-indigo-100/30 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600'
-          />
-        </div>
         <div className='relative'>
           <button className='relative text-gray-600'>
             <GoBell size={28} />
