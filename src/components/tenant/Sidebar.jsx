@@ -18,7 +18,6 @@ function Sidebar() {
   };
 
   const Sidebar_Links = [
-    // { id: 1, name: 'Dashboard', path: '/tenant', icon: <MdDashboard /> },
     { id: 2, name: 'Feedback', path: '/tenant/feedback', icon: <MdDynamicFeed /> },
     { id: 3, name: 'Saveys', path: '/tenant/saveys', icon: <FaRegSave /> },
     { id: 4, name: 'CommunityForum', path: '/tenant/forum', icon: <MdForum /> },
@@ -29,21 +28,21 @@ function Sidebar() {
 
   return (
 
-    <div className='w-16 md:w-56 fixed left-0 top-0 z-10 border-r h-screen pt-8 px-4 bg-white shadow-md'>
-    <div className='mb-8 flex justify-center md:block'>
+    <div className='w-16 md:w-56 fixed left-0 top-0 z-10 border-r h-screen pt-8 px-4 bg-blue-950 shadow-md'>
+    <div className='mb-8 flex justify-center md:block bg-white'>
         <img src={Logo} alt='Logo' className='w-10 md:w-20' />
       </div>
     <ul className='mt-6 space-y-6'>
       {Sidebar_Links.map((link, index) => (
         <li key={index} className='relative'>
           <div
-            className={`font-medium rounded-md py-2 px-5 hover:bg-gray-100 hover:text-indigo-500 ${activeLink === index ? 'bg-indigo-100 text-indigo-500' : ''}`}
-            onClick={() => handleLinkClick(index)}
+           className={`font-medium rounded-md py-2 px-5 hover:bg-blue-500 hover:text-white ${activeLink === index ? 'bg-blue-500 text-white' : ''}`}
+           onClick={() => handleLinkClick(index)}
           >
             <div className='flex items-center justify-between'>
               <Link to={link.path || '#'} className='flex items-center justify-center md:justify-start md:space-x-5'>
-                <span className=' text-indigo-500'>{link.icon}</span>
-                <span className='text-sm text-gray-500 md:flex hidden'>{link.name}</span>
+                <span className=' text-white'>{link.icon}</span>
+                <span className='text-sm text-white md:flex hidden'>{link.name}</span>
               </Link>
               {/* {link.children && (
                 <span className='md:flex hidden'>

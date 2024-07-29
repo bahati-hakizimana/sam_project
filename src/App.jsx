@@ -15,6 +15,9 @@ import Attendance from "./components/admin/pages/Attendance"
 import Announcement from "./components/admin/pages/Announcement"
 import Users from './components/admin/pages/Users';
 import Tenant_Layout from './components/tenant/Tenant_Layout'
+import Survey_Questions from './components/admin/pages/Survey_Questions';
+import Survey_Answer from './components/admin/pages/Survey_Answer';
+import Survey_Choice from './components/admin/pages/Survey_Choice';
 
 function App() {
   return (
@@ -33,6 +36,9 @@ function App() {
         <Route path='/admin/report' element={<Report />} />
         <Route path='/admin/employees' element={<Employees />} />
         <Route path='/admin/saveyschedure' element={<SaveySchedure />} />
+        <Route path='/admin/saveyschedure/questions' element={<Survey_Questions />} />
+        <Route path='/admin/saveyschedure/answers' element={<Survey_Answer />} />
+        <Route path='/admin/saveyschedure/choices' element={<Survey_Choice />} />
         <Route path='/admin/tenants' element={<Tenants />} />
         <Route path='/admin/attendance' element={<Attendance />} />
         <Route path='/admin/announcements' element={<Announcement />} />

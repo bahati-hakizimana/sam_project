@@ -84,7 +84,7 @@ const Navbar = ({ handleLoginPopup }) => {
                   </a>
                 </li>
               ))}
-              <Link
+              {/* <Link
                    to='/admin' 
                    className="primary-btn"
                     // className="text-gray-700 hover:text-gray-900 px-4 py-4 inline-block select-none"
@@ -97,7 +97,7 @@ const Navbar = ({ handleLoginPopup }) => {
                     // className="text-gray-700 hover:text-gray-900 px-4 py-4 inline-block select-none"
                   >
                     tenant
-                  </Link>
+                  </Link> */}
               <Link
                    to='/login' 
                    className="primary-btn"
