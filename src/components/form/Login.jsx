@@ -24,11 +24,12 @@ const Login = () => {
         withCredentials: true
       });
 
-      const { access, refresh, role } = response.data;
+      const { access, refresh, role, user_id } = response.data;
 
       localStorage.setItem('access_token', access);
       localStorage.setItem('refresh_token', refresh);
       localStorage.setItem('user_role', role);
+      localStorage.setItem('user_id', user_id); // Store user_id in localStorage
 
       if (role === 'admin') {
         navigate('/admin');

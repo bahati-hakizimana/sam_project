@@ -19,7 +19,7 @@ function Sidebar() {
 
   const Sidebar_Links = [
     { id: 2, name: 'Feedback', path: '/tenant/feedback', icon: <MdDynamicFeed /> },
-    { id: 3, name: 'Saveys', path: '/tenant/saveys', icon: <FaRegSave /> },
+    { id: 3, name: 'Saveys', path: 'tenant/survey/:surveyId', icon: <FaRegSave /> },
     { id: 4, name: 'CommunityForum', path: '/tenant/forum', icon: <MdForum /> },
     { id: 4, name: 'FAQs', path: '/tenant/faqs', icon: <FaQuestionCircle /> },
     { id: 4, name: 'SupportResourse', path: '/tenant/resourse', icon: <TfiSupport/> },
