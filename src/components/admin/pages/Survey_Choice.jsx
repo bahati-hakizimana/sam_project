@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css'; // Import SweetAlert2 CSS
 
 function Survey_Choice() {
   const [choices, setChoices] = useState([]);
@@ -36,6 +38,50 @@ function Survey_Choice() {
     fetchChoices();
   }, []);
 
+  const handleDeleteChoice = async (choiceId) => {
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'This action cannot be undone.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+      customClass: {
+        confirmButton: 'swal2-confirm',
+        cancelButton: 'swal2-cancel',
+      },
+    });
+
+    if (result.isConfirmed) {
+      try {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+          setError('No access token found');
+          return;
+        }
+
+        const response = await fetch(`http://127.0.0.1:8000/api/choice/delete/${choiceId}/`, {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        setChoices(choices.filter(choice => choice.id !== choiceId));
+
+        Swal.fire('Deleted!', 'Your choice has been deleted.', 'success');
+      } catch (error) {
+        console.error('Error deleting choice:', error);
+        setError('Error deleting choice. Please try again.');
+      }
+    }
+  };
+
   return (
     <div className="container mx-auto mt-10 px-4">
       <h1 className="text-2xl font-bold mb-4">Choices List</h1>
@@ -50,12 +96,13 @@ function Survey_Choice() {
               <th className="py-3 px-6 text-left text-sm font-semibold">Choice Text</th>
               <th className="py-3 px-6 text-left text-sm font-semibold">Created At</th>
               <th className="py-3 px-6 text-left text-sm font-semibold">Updated At</th>
+              <th className="py-3 px-6 text-left text-sm font-semibold">Actions</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {choices.length === 0 ? (
               <tr>
-                <td colSpan="5" className="py-4 text-center text-gray-500">No choices found.</td>
+                <td colSpan="6" className="py-4 text-center text-gray-500">No choices found.</td>
               </tr>
             ) : (
               choices.map((choice) => (
@@ -65,6 +112,14 @@ function Survey_Choice() {
                   <td className="py-4 px-6 text-sm text-gray-500">{choice.text}</td>
                   <td className="py-4 px-6 text-sm text-gray-500">{new Date(choice.created_at).toLocaleString()}</td>
                   <td className="py-4 px-6 text-sm text-gray-500">{new Date(choice.updated_at).toLocaleString()}</td>
+                  <td className="py-4 px-6 text-sm">
+                    <button
+                      onClick={() => handleDeleteChoice(choice.id)}
+                      className="px-2 py-1 bg-red-500 text-white rounded"
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))
             )}

@@ -6,7 +6,7 @@ import { TbReportAnalytics } from 'react-icons/tb';
 import { IoIosArrowDown, IoIosArrowForward } from 'react-icons/io';
 import { GrSchedules } from 'react-icons/gr';
 import { Link } from 'react-router-dom';
-import Logo from '../../assets/website/officehub.jpeg'; // Make sure the path is correct
+import Logo from '../../assets/website/LOGO.svg'; 
 
 function Sidebar() {
   const [activeLink, setActiveLink] = useState(null);
@@ -36,8 +36,8 @@ function Sidebar() {
     },
     { id: 3, name: 'Users', path: '/admin/users', icon: <FaUsers /> },
     { id: 4, name: 'Notifications', path: '/admin/notifications', icon: <MdOutlineNotificationsActive /> },
-    { id: 5, name: 'Benchmarks', path: '/admin/benchmarks', icon: <GiParkBench /> },
-    { id: 6, name: 'Report', path: '/admin/report', icon: <TbReportAnalytics /> },
+    { id: 5, name: 'Feedback', path: 'feedbacks', icon: <GiParkBench /> },
+    // { id: 6, name: 'Report', path: '/admin/report', icon: <TbReportAnalytics /> },
   ];
 
   return (

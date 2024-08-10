@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { MdDashboard } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import Logo from '../../assets/website/officehub.jpeg';
+import Logo from '../../assets/website/LOGO.svg';
 import { MdDynamicFeed } from "react-icons/md";
 import { FaRegSave } from "react-icons/fa";
 import { MdForum } from "react-icons/md";
@@ -20,9 +20,9 @@ function Sidebar() {
   const Sidebar_Links = [
     { id: 2, name: 'Feedback', path: '/tenant/feedback', icon: <MdDynamicFeed /> },
     { id: 3, name: 'Saveys', path: 'tenant/survey/:surveyId', icon: <FaRegSave /> },
-    { id: 4, name: 'CommunityForum', path: '/tenant/forum', icon: <MdForum /> },
-    { id: 4, name: 'FAQs', path: '/tenant/faqs', icon: <FaQuestionCircle /> },
-    { id: 4, name: 'SupportResourse', path: '/tenant/resourse', icon: <TfiSupport/> },
+    { id: 4, name: 'Notifications', path: '/tenant/notifications', icon: <MdForum /> },
+    // { id: 4, name: 'FAQs', path: '/tenant/faqs', icon: <FaQuestionCircle /> },
+    // { id: 4, name: 'SupportResourse', path: '/tenant/resourse', icon: <TfiSupport/> },
   
   ];
 

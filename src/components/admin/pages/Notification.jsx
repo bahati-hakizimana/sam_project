@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaEdit } from 'react-icons/fa';
 import { MdAutoDelete } from 'react-icons/md';
+import Swal from 'sweetalert2';
 
 function Notification() {
   const [notifications, setNotifications] = useState([]);
@@ -10,7 +11,7 @@ function Notification() {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const token = localStorage.getItem('access_token'); // Get the access token from local storage
+        const token = localStorage.getItem('access_token');
         if (!token) {
           setError('No access token found');
           return;
@@ -41,13 +42,13 @@ function Notification() {
 
   const handleDelete = async (id) => {
     try {
-      const token = localStorage.getItem('access_token'); // Get the access token from local storage
+      const token = localStorage.getItem('access_token');
       if (!token) {
         setError('No access token found');
         return;
       }
 
-      const response = await fetch(`http://127.0.0.1:8000/notification/notifications/${id}/`, {
+      const response = await fetch(`http://127.0.0.1:8000/notification/delete/${id}/`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -59,7 +60,6 @@ function Notification() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      // Remove the deleted notification from the state
       setNotifications(notifications.filter(notification => notification.id !== id));
     } catch (error) {
       console.error('Error deleting notification:', error);
@@ -67,13 +67,115 @@ function Notification() {
     }
   };
 
+  const handleAddNotification = async () => {
+    const { value: description } = await Swal.fire({
+      title: 'Add Notification',
+      input: 'text',
+      inputLabel: 'Description',
+      inputPlaceholder: 'Enter notification description',
+      showCancelButton: true,
+      confirmButtonColor: '#007bff', // Blue color for the confirm button
+      cancelButtonColor: '#6c757d', // Grey color for the cancel button
+      inputValidator: (value) => {
+        if (!value) {
+          return 'You need to write something!';
+        }
+      }
+    });
+
+    if (description) {
+      try {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+          setError('No access token found');
+          return;
+        }
+
+        const response = await fetch('http://127.0.0.1:8000/notification/add/', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ description }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const newNotification = await response.json();
+        setNotifications([...notifications, newNotification]);
+
+        Swal.fire('Notification Added', '', 'success');
+      } catch (error) {
+        console.error('Error adding notification:', error);
+        setError('Error adding notification. Please try again.');
+      }
+    }
+  };
+
+  const handleEditNotification = async (id, currentDescription) => {
+    const { value: newDescription } = await Swal.fire({
+      title: 'Edit Notification',
+      input: 'text',
+      inputLabel: 'Description',
+      inputValue: currentDescription,
+      inputPlaceholder: 'Enter new notification description',
+      showCancelButton: true,
+      confirmButtonColor: '#007bff', // Blue color for the confirm button
+      cancelButtonColor: '#6c757d', // Grey color for the cancel button
+      inputValidator: (value) => {
+        if (!value) {
+          return 'You need to write something!';
+        }
+      }
+    });
+
+    if (newDescription) {
+      try {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+          setError('No access token found');
+          return;
+        }
+
+        const response = await fetch(`http://127.0.0.1:8000/notification/update/${id}/`, {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ description: newDescription }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const updatedNotification = await response.json();
+        setNotifications(notifications.map(notification =>
+          notification.id === id ? updatedNotification : notification
+        ));
+
+        Swal.fire('Notification Updated', '', 'success');
+      } catch (error) {
+        console.error('Error updating notification:', error);
+        setError('Error updating notification. Please try again.');
+      }
+    }
+  };
+
   return (
     <div className="container mx-auto mt-10">
       <h1 className="text-2xl font-bold mb-4">Notifications</h1>
       {error && <p className="text-red-500">{error}</p>}
-      <Link to="/admin/add-notification">
-        <button className="mb-4 px-4 py-2 bg-blue-500 text-white rounded">Add Notification</button>
-      </Link>
+      <button
+        onClick={handleAddNotification}
+        className="mb-4 px-4 py-2 bg-blue-500 text-white rounded"
+      >
+        Add Notification
+      </button>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border border-gray-200">
           <thead>
@@ -94,14 +196,15 @@ function Notification() {
                   <td className="py-2 px-4 border-b text-center">{notification.description}</td>
                   <td className="py-2 px-4 border-b text-center">{new Date(notification.created_date).toLocaleString()}</td>
                   <td className="py-2 px-4 border-b text-center">
-                    <Link to={`/admin/edit-notification/${notification.id}`}>
-                      <button className="mr-2">
-                        <FaEdit className="text-xl text-gray-700 hover:text-green-500" />
-                      </button>
-                    </Link>
-                    {/* <button onClick={() => handleDelete(notification.id)} className="text-red-500">
+                    <button
+                      onClick={() => handleEditNotification(notification.id, notification.description)}
+                      className="mr-2"
+                    >
+                      <FaEdit className="text-xl text-gray-700 hover:text-green-500" />
+                    </button>
+                    <button onClick={() => handleDelete(notification.id)} className="text-red-500">
                       <MdAutoDelete className="text-xl hover:text-red-700" />
-                    </button> */}
+                    </button>
                   </td>
                 </tr>
               ))

@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Swal from 'sweetalert2'; // Import SweetAlert2
 
 function SurveyWork() {
   const { surveyId } = useParams();
-  const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
   const [choices, setChoices] = useState([]);
   const [answers, setAnswers] = useState({});
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const questionsPerPage = 2;
 
   useEffect(() => {
     const fetchSurveyData = async () => {
@@ -129,6 +130,23 @@ function SurveyWork() {
     }
   };
 
+  // Calculate the current questions to display
+  const indexOfLastQuestion = currentPage * questionsPerPage;
+  const indexOfFirstQuestion = indexOfLastQuestion - questionsPerPage;
+  const currentQuestions = questions.slice(indexOfFirstQuestion, indexOfLastQuestion);
+
+  // Handle page change
+  const handlePageChange = (direction) => {
+    setCurrentPage(prevPage => {
+      if (direction === 'next') {
+        return Math.min(prevPage + 1, Math.ceil(questions.length / questionsPerPage));
+      } else if (direction === 'prev') {
+        return Math.max(prevPage - 1, 1);
+      }
+      return prevPage;
+    });
+  };
+
   return (
     <div className="container mx-auto mt-10 px-4">
       <h1 className="text-2xl font-bold mb-4">Survey Questions</h1>
@@ -136,8 +154,8 @@ function SurveyWork() {
 
       <form onSubmit={handleSubmit}>
         <div className="space-y-6">
-          {questions.length > 0 ? (
-            questions.map((question) => (
+          {currentQuestions.length > 0 ? (
+            currentQuestions.map((question) => (
               <div key={question.id}>
                 <h2 className="text-xl font-semibold mb-2">{question.text}</h2>
                 <div className="space-y-2">
@@ -166,6 +184,24 @@ function SurveyWork() {
           ) : (
             <p>No questions available.</p>
           )}
+        </div>
+        <div className="mt-6 flex justify-between">
+          <button
+            type="button"
+            onClick={() => handlePageChange('prev')}
+            className="py-2 px-4 bg-gray-300 text-black font-semibold rounded-md hover:bg-gray-400"
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+          <button
+            type="button"
+            onClick={() => handlePageChange('next')}
+            className="py-2 px-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600"
+            disabled={indexOfLastQuestion >= questions.length}
+          >
+            Next
+          </button>
         </div>
         <button type="submit" className="mt-6 py-2 px-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600">
           Submit Answers

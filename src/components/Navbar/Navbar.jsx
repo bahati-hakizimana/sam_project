@@ -1,7 +1,7 @@
 import React,{useRef,useEffect, useState} from 'react'
 import { HiMenuAlt3, HiMenuAlt1 } from "react-icons/hi";
 import ResponsiveMenu from "./ResponsiveMenu";
-import Logo from "../../assets/website/Officehub.jpeg";
+import Logo from "../../assets/website/LOGO.svg";
 import DarkMode from "./DarkMode";
 import { Link } from 'react-router-dom';
 
@@ -66,10 +66,7 @@ const Navbar = ({ handleLoginPopup }) => {
           <a
             href="#"
           >
-            <img src={Logo} alt="" className=" w-20" />
-            <span className="text-2xl sm:text-3xl font-semibold">
-              officeHub
-            </span>
+            <img src={Logo} alt="" className=" w-36" />
           </a>
           {/* Desktop view Navigation */}
           <nav className="hidden md:block">
