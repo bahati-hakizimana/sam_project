@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
+import logo from '../../../assets/website/LOGO.svg'
 
 function Survey_Questions() {
   const [questions, setQuestions] = useState([]);
@@ -178,16 +181,80 @@ function Survey_Questions() {
     }
   };
 
+  const handleDownloadPDF = () => {
+    try {
+      const doc = new jsPDF();
+
+      // Convert the image to a base64 string
+      const img = new Image();
+      img.src = logo;
+
+      img.onload = () => {
+        // Add the logo to the PDF
+        doc.addImage(img, 'JPEG', 10, 10, 30, 30); // Positioning the logo
+
+        // Add the report name next to the logo
+        doc.setFontSize(20);
+        doc.text('Savey_Questions Report', 50, 25); // Positioning the text next to the logo
+
+        // Draw a line under the header (optional)
+        doc.setLineWidth(0.5);
+        doc.line(10, 45, 200, 45);
+
+        // Define the columns for the table
+        const tableColumn = ["Survey_id", "Question_text", "Created_Date",];
+
+        // Define the rows for the table
+        const tableRows = questions.map(question => [
+          question.survey, question.text,
+          new Date(question.created_at).toLocaleString()
+        ]);
+
+        // Generate the table in the PDF
+        doc.autoTable({
+          head: [tableColumn],
+          body: tableRows,
+          startY: 50, // Start the table below the logo and title
+          theme: 'striped',
+          styles: {
+            fontSize: 10,
+          },
+          headStyles: {
+            fillColor: [41, 128, 185],
+            textColor: [255, 255, 255],
+          },
+        });
+
+        // Save the generated PDF
+        doc.save('Survey_questions_report.pdf');
+      };
+    } catch (error) {
+      console.error('Error generating PDF report:', error);
+      setError('Error generating PDF report. Please try again.');
+    }
+  };
+
   return (
     <div className="container mx-auto mt-10 p-4">
       <h1 className="text-2xl font-bold mb-4">Survey Questions List</h1>
       {error && <p className="text-red-500 mb-4">{error}</p>}
-      <button
-        onClick={handleAddQuestion}
-        className="mb-4 px-4 py-2 bg-blue-500 text-white rounded"
-      >
-        Add Question
-      </button>
+      <div className='flex justify-end'>
+        <div className=' flex gap-4'>
+          <button
+            onClick={handleAddQuestion}
+            className="mb-4 px-4 py-2 bg-blue-500 text-white rounded"
+          >
+            Add Question
+          </button>
+
+          <button onClick={handleDownloadPDF} className="mb-4 px-4 py-2 bg-green-500 text-white rounded">
+            Print Report
+          </button>
+
+        </div>
+
+      </div>
+
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-blue-500 text-white">

@@ -39,6 +39,33 @@ const Users = () => {
     fetchUsers();
   }, []);
 
+
+  const handleDelete = async (id) => {
+    try {
+      const token = localStorage.getItem('access_token');
+      if (!token) {
+        setError('No access token found');
+        return;
+      }
+
+      const response = await fetch(`http://127.0.0.1:8000/user/delete/${id}/`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      setUsers(users.filter(user => user.id !== id));
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      setError('Error deleting user. Please try again.');
+    }
+  };
   return (
     <div className="container mx-auto mt-10">
       <h1 className="text-2xl font-bold mb-4">User List</h1>
@@ -71,7 +98,7 @@ const Users = () => {
                     <Link to={`/admin/updateuser/${user.id}`} className="text-gray-700 hover:text-green-500">
                       <FaEdit className="text-xl" />
                     </Link>
-                    <button className="text-gray-700 hover:text-red-500">
+                    <button onClick={() => handleDelete(user.id)}  className="text-gray-700 hover:text-red-500">
                       <MdAutoDelete className="text-xl" />
                     </button>
                   </td>

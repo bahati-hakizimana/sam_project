@@ -21,6 +21,8 @@ import SurveyWork from './components/tenant/pages/SurveyWork';
 import EditUser from './components/admin/pages/EditUser';
 import Notifications from './components/tenant/pages/Notifications';
 import Feed_Back from './components/tenant/pages/Feed_Back';
+import Home from './components/admin/pages/Home';
+import THome from './components/tenant/pages/THome';
 
 function App() {
   return (
@@ -32,6 +34,7 @@ function App() {
 
         {/* Admin Routes */}
         <Route path='/admin' element={<Layout />}>
+          <Route index element={<Home />} />
           <Route path='users' element={<Users />} />
           <Route path='notifications' element={<Notification />} />
           <Route path='feedbacks' element={<BenchMarks />} />
@@ -50,6 +53,7 @@ function App() {
 
         {/* Tenant Routes */}
         <Route path='/tenant' element={<Tenant_Layout />}>
+          <Route index element={<THome />} />
           <Route path='tenant/survey/:surveyId' element={<SurveyWork />} />
           <Route path='/tenant/notifications' element={<Notifications />} />
           <Route path='/tenant/feedback' element={<Feed_Back />} />

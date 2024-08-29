@@ -40,9 +40,9 @@ const Signup = () => {
         });
       } else {
         Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Something went wrong!',
+          icon: 'success',
+          title: 'Created',
+          text: 'User created successfully',
           confirmButtonColor: '#d33',
         });
       }
@@ -98,6 +98,9 @@ const Signup = () => {
                   value={formData.password}
                   onChange={handleChange}
                 />
+                <p className="text-sm text-red-600 mt-2">
+                  Password must include at least one special character.
+                </p>
               </div>
               <div className="py-4">
                 <span className="mb-2 text-md">Confirm Password</span>
