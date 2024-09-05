@@ -1,214 +1,93 @@
+
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import Swal from 'sweetalert2'; // Import SweetAlert2
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function SurveyWork() {
-  const { surveyId } = useParams();
-  const [questions, setQuestions] = useState([]);
-  const [choices, setChoices] = useState([]);
-  const [answers, setAnswers] = useState({});
-  const [error, setError] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const questionsPerPage = 2;
+  const [surveys, setSurveys] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
+  // Fetch surveys
   useEffect(() => {
-    const fetchSurveyData = async () => {
-      try {
-        const token = localStorage.getItem('access_token');
-        if (!token) {
-          setError('No access token found');
-          return;
-        }
+    fetchSurveys();
+  }, [page]);
 
-        // Fetch questions
-        const questionsResponse = await fetch(`http://127.0.0.1:8000/api/questions?survey=${surveyId}`, {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
-
-        if (!questionsResponse.ok) {
-          throw new Error(`HTTP error! status: ${questionsResponse.status}`);
-        }
-
-        const questionsData = await questionsResponse.json();
-        setQuestions(questionsData.questions);
-        console.log('Questions:', questionsData.questions); // Debugging
-
-        // Fetch choices
-        const choicesResponse = await fetch('http://127.0.0.1:8000/api/choices/', {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
-
-        if (!choicesResponse.ok) {
-          throw new Error(`HTTP error! status: ${choicesResponse.status}`);
-        }
-
-        const choicesData = await choicesResponse.json();
-        setChoices(choicesData.choices);
-        console.log('Choices:', choicesData.choices); // Debugging
-      } catch (error) {
-        console.error('Error fetching survey data:', error);
-        setError('Error fetching survey data. Please check your credentials and try again.');
-      }
-    };
-
-    fetchSurveyData();
-  }, [surveyId]);
-
-  const handleAnswerChange = (questionId, choiceId) => {
-    setAnswers({
-      ...answers,
-      [questionId]: choiceId,
-    });
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const fetchSurveys = async () => {
+    const token = localStorage.getItem('access_token');
     try {
-      const token = localStorage.getItem('access_token');
-      if (!token) {
-        setError('No access token found');
-        return;
-      }
-
-      const tenantIdString = localStorage.getItem('user_id'); // Fetch user_id from localStorage
-      if (!tenantIdString) {
-        setError('No user ID found');
-        return;
-      }
-
-      const tenantId = parseInt(tenantIdString, 10);
-      if (isNaN(tenantId)) {
-        setError('Invalid user ID');
-        return;
-      }
-
-      // Prepare the answers data
-      const answersData = Object.keys(answers).map(questionId => ({
-        question: parseInt(questionId, 10),
-        choice: answers[questionId],
-        tenant: tenantId,
-      }));
-
-      console.log('Submitting answers:', answersData); // Debugging
-
-      // Submit each answer
-      for (const answerData of answersData) {
-        const response = await fetch('http://127.0.0.1:8000/api/answer/create/', {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(answerData),
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-      }
-
-      // Show SweetAlert message
-      Swal.fire({
-        title: 'Thank You!',
-        text: 'Thank you for taking our survey.',
-        icon: 'success',
-        confirmButtonText: 'OK'
-      }).then(() => {
-        // navigate('/surveys'); // Navigate after closing the alert
+      const response = await axios.get(`http://127.0.0.1:8000/api/surveys/?page=${page}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       });
+      setSurveys(response.data.surveys);
+      // Assuming the API returns a total_pages field for pagination
+      setTotalPages(response.data.total_pages || 1);
     } catch (error) {
-      console.error('Error submitting answers:', error);
-      setError('Error submitting answers. Please try again.');
+      console.error('Error fetching surveys:', error);
     }
   };
 
-  // Calculate the current questions to display
-  const indexOfLastQuestion = currentPage * questionsPerPage;
-  const indexOfFirstQuestion = indexOfLastQuestion - questionsPerPage;
-  const currentQuestions = questions.slice(indexOfFirstQuestion, indexOfLastQuestion);
+  // Pagination Handlers
+  const handleNextPage = () => {
+    if (page < totalPages) {
+      setPage(page + 1);
+    }
+  };
 
-  // Handle page change
-  const handlePageChange = (direction) => {
-    setCurrentPage(prevPage => {
-      if (direction === 'next') {
-        return Math.min(prevPage + 1, Math.ceil(questions.length / questionsPerPage));
-      } else if (direction === 'prev') {
-        return Math.max(prevPage - 1, 1);
-      }
-      return prevPage;
-    });
+  const handlePrevPage = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
   };
 
   return (
-    <div className="container mx-auto mt-10 px-4">
-      <h1 className="text-2xl font-bold mb-4">Survey Questions</h1>
-      {error && <p className="text-red-500">{error}</p>}
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Surveys</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {surveys.map((survey) => (
+          <div key={survey.id} className="bg-white shadow-md rounded-lg p-4">
+            <h2 className="text-xl font-semibold">{survey.title}</h2>
+            <p className="text-gray-700">{survey.description}</p>
+            <span className="text-sm text-gray-500">Category: {survey.category}</span>
+            <br />
+            <span className="text-sm text-gray-500">Created At: {new Date(survey.created_at).toLocaleDateString()}</span>
+            <br />
+            {/* Link to start the survey */}
+            <Link
+              to={`/tenant/start-survey/${survey.id}`}
+              className="text-white px-4 py-1 rounded-lg hover:text-blue-700 bg-blue-900 mt-4 inline-block"
+            >
+              Start Survey
+            </Link>
+          </div>
+        ))}
+      </div>
 
-      <form onSubmit={handleSubmit}>
-        <div className="space-y-6">
-          {currentQuestions.length > 0 ? (
-            currentQuestions.map((question) => (
-              <div key={question.id}>
-                <h2 className="text-xl font-semibold mb-2">{question.text}</h2>
-                <div className="space-y-2">
-                  {choices.filter(choice => choice.question === question.id).length > 0 ? (
-                    choices.filter(choice => choice.question === question.id).map((choice) => (
-                      <div key={choice.id}>
-                        <label className="flex items-center">
-                          <input
-                            type="radio"
-                            name={`question-${question.id}`}
-                            value={choice.id}
-                            checked={answers[question.id] === choice.id}
-                            onChange={() => handleAnswerChange(question.id, choice.id)}
-                            className="mr-2"
-                          />
-                          {choice.text}
-                        </label>
-                      </div>
-                    ))
-                  ) : (
-                    <p>No choices available for this question.</p>
-                  )}
-                </div>
-              </div>
-            ))
-          ) : (
-            <p>No questions available.</p>
-          )}
-        </div>
-        <div className="mt-6 flex justify-between">
-          <button
-            type="button"
-            onClick={() => handlePageChange('prev')}
-            className="py-2 px-4 bg-gray-300 text-black font-semibold rounded-md hover:bg-gray-400"
-            disabled={currentPage === 1}
-          >
-            Previous
-          </button>
-          <button
-            type="button"
-            onClick={() => handlePageChange('next')}
-            className="py-2 px-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600"
-            disabled={indexOfLastQuestion >= questions.length}
-          >
-            Next
-          </button>
-        </div>
-        <button type="submit" className="mt-6 py-2 px-4 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600">
-          Submit Answers
+      <div className="flex justify-between items-center mt-6">
+        <button
+          onClick={handlePrevPage}
+          disabled={page === 1}
+          className="bg-gray-300 px-4 py-2 rounded disabled:opacity-50"
+        >
+          Previous
         </button>
-      </form>
+
+        <span>Page {page} of {totalPages}</span>
+
+        <button
+          onClick={handleNextPage}
+          disabled={page === totalPages}
+          className="bg-gray-300 px-4 py-2 rounded disabled:opacity-50"
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 }
 
 export default SurveyWork;
+

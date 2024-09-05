@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css'; // Import SweetAlert2 CSS
 
@@ -234,20 +235,26 @@ function Survey_Answer() {
                   <td className="py-3 px-6 text-sm">{answer.question}</td>
                   <td className="py-3 px-6 text-sm">{answer.choice}</td>
                   <td className="py-3 px-6 text-sm">{answer.tenant}</td>
-                  <td className="py-3 px-6 text-sm">{new Date(answer.submitted_at).toLocaleString()}</td>
-                  <td className="py-3 px-6 text-sm">
+                  <td className="py-3 px-6 text-sm">{answer.submitted_at}</td>
+                  <td className="py-3 px-6 text-sm flex space-x-2">
                     <button
                       onClick={() => handleUpdateAnswer(answer)}
-                      className="mr-2 px-2 py-1 bg-blue-500 text-white rounded"
+                      className="px-4 py-2 bg-yellow-500 text-white rounded"
                     >
-                      Update
+                      Edit
                     </button>
                     <button
                       onClick={() => handleDeleteAnswer(answer.id)}
-                      className="px-2 py-1 bg-red-500 text-white rounded"
+                      className="px-4 py-2 bg-red-500 text-white rounded"
                     >
                       Delete
                     </button>
+                    <Link
+                      to={`/admin/answers/${answer.id}`}
+                      className="px-4 py-2 bg-green-500 text-white rounded"
+                    >
+                      View Details
+                    </Link>
                   </td>
                 </tr>
               ))

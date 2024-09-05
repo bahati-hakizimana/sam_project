@@ -23,6 +23,9 @@ import Notifications from './components/tenant/pages/Notifications';
 import Feed_Back from './components/tenant/pages/Feed_Back';
 import Home from './components/admin/pages/Home';
 import THome from './components/tenant/pages/THome';
+import CreateChoice from './components/admin/pages/CreateChoice';
+import ViewAnswersDetails from './components/admin/pages/ViewAnswersDetails';
+import StartSurvey from './components/tenant/pages/StartSurvey';
 
 function App() {
   return (
@@ -45,6 +48,8 @@ function App() {
           <Route path='saveyschedure/answers' element={<Survey_Answer />} />
           <Route path='saveyschedure/choices' element={<Survey_Choice />} />
           <Route path='/admin/updateuser/:id' element={<EditUser />} />
+          <Route path='/admin/addchoice' element={<CreateChoice />} />
+          <Route path='/admin/answers/:id' element={<ViewAnswersDetails />} />
           {/* <Route path='saveyschedure/work' element={<SurveyWork />} /> */}
           <Route path='tenants' element={<Tenants />} />
           <Route path='attendance' element={<Attendance />} />
@@ -57,6 +62,7 @@ function App() {
           <Route path='tenant/survey/:surveyId' element={<SurveyWork />} />
           <Route path='/tenant/notifications' element={<Notifications />} />
           <Route path='/tenant/feedback' element={<Feed_Back />} />
+          <Route path="/tenant/start-survey/:surveyId" element={<StartSurvey />} />
         </Route>
       </Routes>
     </BrowserRouter>

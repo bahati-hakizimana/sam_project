@@ -8,6 +8,7 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend,
 function Home() {
   const [growthData, setGrowthData] = useState(null);
   const [totalUsers, setTotalUsers] = useState(null);
+  const [analyticsData, setAnalyticsData] = useState(null); // New state for analytics data
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -79,15 +80,50 @@ function Home() {
       }
     };
 
+    const fetchAnalyticsData = async () => {
+      try {
+        const token = localStorage.getItem('access_token');
+        if (!token) {
+          setError('No access token found');
+          return;
+        }
+
+        const response = await fetch('http://127.0.0.1:8000/api/answers/analytics/', {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setAnalyticsData(data);
+      } catch (error) {
+        console.error('Error fetching analytics data:', error);
+        setError('Error fetching analytics data. Please try again.');
+        Swal.fire({
+          title: 'Error',
+          text: 'Error fetching analytics data.',
+          icon: 'error',
+          confirmButtonText: 'OK',
+        });
+      }
+    };
+
     fetchUserGrowth();
     fetchTotalUsers();
+    fetchAnalyticsData(); // Fetch the analytics data
   }, []);
 
   if (error) {
     return <p className="text-red-500">{error}</p>;
   }
 
-  if (!growthData || !totalUsers) {
+  if (!growthData || !totalUsers || !analyticsData) {
     return <p>Loading...</p>;
   }
 
@@ -119,14 +155,26 @@ function Home() {
     },
   };
 
-  // Pie chart data
-  const pieData = {
+  // Pie chart data for total users
+  const pieDataUsers = {
     labels: ['Total Users'],
     datasets: [
       {
         data: [totalUsers.total_users],
         backgroundColor: ['#36A2EB'],
         hoverBackgroundColor: ['#36A2EB'],
+      },
+    ],
+  };
+
+  // Pie chart data for answers analytics
+  const pieDataAnalytics = {
+    labels: ['Positive Answers', 'Negative Answers'],
+    datasets: [
+      {
+        data: [analyticsData.total_positive_answers, analyticsData.total_negative_answers],
+        backgroundColor: ['#4CAF50', '#F44336'],
+        hoverBackgroundColor: ['#4CAF50', '#F44336'],
       },
     ],
   };
@@ -139,9 +187,14 @@ function Home() {
           <Bar data={chartData} options={chartOptions} />
         </div>
         <div className="w-full md:w-1/3 p-4">
-          <h2 className="text-xl font-bold mb-4 text-center">Total Users</h2>
-          <Pie data={pieData} />
+          <h2 className="text-xl font-bold mb-4 text-center">Answers Analytics</h2>
+          <Pie data={pieDataAnalytics} />
         </div>
+        <div className="w-full md:w-1/3 p-4">
+          <h2 className="text-xl font-bold mb-4 text-center">Total Users</h2>
+          <Pie data={pieDataUsers} />
+        </div>
+        
       </div>
       <div className="mt-6 text-center">
         <p className="text-lg">User Growth: {growthData.growth}%</p>

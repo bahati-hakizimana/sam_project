@@ -45,18 +45,23 @@ const SaveySchedure = () => {
       html: `
         <input id="title" class="swal2-input" placeholder="Title">
         <textarea id="description" class="swal2-textarea" placeholder="Description"></textarea>
+        <select id="category" class="swal2-select">
+          <option value="services">Services</option>
+          <option value="appreciation">Appreciation</option>
+        </select>
       `,
       focusConfirm: false,
       preConfirm: () => {
         const title = Swal.getPopup().querySelector('#title').value;
         const description = Swal.getPopup().querySelector('#description').value;
-        if (!title || !description) {
-          Swal.showValidationMessage('Please enter both title and description');
+        const category = Swal.getPopup().querySelector('#category').value;
+        if (!title || !description || !category) {
+          Swal.showValidationMessage('Please enter all fields');
         }
-        return { title, description };
+        return { title, description, category };
       },
     });
-
+  
     if (formValues) {
       try {
         const token = localStorage.getItem('access_token');
@@ -64,7 +69,7 @@ const SaveySchedure = () => {
           setError('No access token found');
           return;
         }
-
+  
         const response = await fetch('http://127.0.0.1:8000/api/survey/create/', {
           method: 'POST',
           headers: {
@@ -73,14 +78,14 @@ const SaveySchedure = () => {
           },
           body: JSON.stringify(formValues),
         });
-
+  
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-
+  
         const newSurvey = await response.json();
         setSurveys([...surveys, newSurvey]);
-
+  
         Swal.fire('Survey Created', '', 'success');
       } catch (error) {
         console.error('Error creating survey:', error);
@@ -88,25 +93,30 @@ const SaveySchedure = () => {
       }
     }
   };
-
+  
   const handleEditSurvey = async (survey) => {
     const { value: formValues } = await Swal.fire({
       title: 'Edit Survey',
       html: `
         <input id="title" class="swal2-input" placeholder="Title" value="${survey.title}">
         <textarea id="description" class="swal2-textarea" placeholder="Description">${survey.description}</textarea>
+        <select id="category" class="swal2-select">
+          <option value="services" ${survey.category === 'services' ? 'selected' : ''}>Services</option>
+          <option value="appreciation" ${survey.category === 'appreciation' ? 'selected' : ''}>Appreciation</option>
+        </select>
       `,
       focusConfirm: false,
       preConfirm: () => {
         const title = Swal.getPopup().querySelector('#title').value;
         const description = Swal.getPopup().querySelector('#description').value;
-        if (!title || !description) {
-          Swal.showValidationMessage('Please enter both title and description');
+        const category = Swal.getPopup().querySelector('#category').value;
+        if (!title || !description || !category) {
+          Swal.showValidationMessage('Please enter all fields');
         }
-        return { title, description };
+        return { title, description, category };
       },
     });
-
+  
     if (formValues) {
       try {
         const token = localStorage.getItem('access_token');
@@ -114,7 +124,7 @@ const SaveySchedure = () => {
           setError('No access token found');
           return;
         }
-
+  
         const response = await fetch(`http://127.0.0.1:8000/api/survey/update/${survey.id}/`, {
           method: 'PUT',
           headers: {
@@ -123,14 +133,14 @@ const SaveySchedure = () => {
           },
           body: JSON.stringify(formValues),
         });
-
+  
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-
+  
         const updatedSurvey = await response.json();
         setSurveys(surveys.map(s => (s.id === updatedSurvey.id ? updatedSurvey : s)));
-
+  
         Swal.fire('Survey Updated', '', 'success');
       } catch (error) {
         console.error('Error updating survey:', error);
@@ -196,8 +206,10 @@ const SaveySchedure = () => {
         <table className="min-w-full divide-y divide-gray-300">
           <thead className="bg-blue-600 text-white">
             <tr>
+              <th className="py-3 px-6 text-left text-sm font-semibold">id</th>
               <th className="py-3 px-6 text-left text-sm font-semibold">Title</th>
               <th className="py-3 px-6 text-left text-sm font-semibold">Description</th>
+              <th className="py-3 px-6 text-left text-sm font-semibold">Category</th>
               <th className="py-3 px-6 text-left text-sm font-semibold">Created At</th>
               <th className="py-3 px-6 text-left text-sm font-semibold">Actions</th>
             </tr>
@@ -210,8 +222,10 @@ const SaveySchedure = () => {
             ) : (
               surveys.map((survey) => (
                 <tr key={survey.id} className="hover:bg-gray-100 transition duration-200">
+                  <td className="py-4 px-6 text-sm text-gray-700">{survey.id}</td>
                   <td className="py-4 px-6 text-sm text-gray-700">{survey.title}</td>
                   <td className="py-4 px-6 text-sm text-gray-700">{survey.description}</td>
+                  <td className="py-4 px-6 text-sm text-gray-700">{survey.category}</td>
                   <td className="py-4 px-6 text-sm text-gray-700">{new Date(survey.created_at).toLocaleString()}</td>
                   <td className="py-4 px-6 text-sm text-gray-700 flex space-x-2">
                     <button 
