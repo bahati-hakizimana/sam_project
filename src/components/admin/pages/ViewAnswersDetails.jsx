@@ -28,6 +28,7 @@ function ViewAnswersDetails() {
         }
 
         const data = await response.json();
+        console.log('Fetched answer details:', data); // Check the data structure
         setAnswer(data);
       } catch (error) {
         console.error('Error fetching answer details:', error);
@@ -40,6 +41,9 @@ function ViewAnswersDetails() {
 
   if (error) return <p className="text-red-500">{error}</p>;
   if (!answer) return <p>Loading...</p>;
+
+  // Debugging log for answer state
+  console.log('Rendered answer details:', answer);
 
   return (
     <div className="container mx-auto mt-10 px-4">
@@ -64,7 +68,9 @@ function ViewAnswersDetails() {
           </tr>
           <tr>
             <td className="py-3 px-6 text-sm font-semibold">Is Positive</td>
-            <td className="py-3 px-6 text-sm">{answer.is_positive }</td>
+            <td className="py-3 px-6 text-sm">
+              {answer.is_positive ? 'True' : 'False'}
+            </td>
           </tr>
           <tr>
             <td className="py-3 px-6 text-sm font-semibold">Tenant Username</td>
