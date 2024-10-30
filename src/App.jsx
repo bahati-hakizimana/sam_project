@@ -26,6 +26,9 @@ import THome from './components/tenant/pages/THome';
 import CreateChoice from './components/admin/pages/CreateChoice';
 import ViewAnswersDetails from './components/admin/pages/ViewAnswersDetails';
 import StartSurvey from './components/tenant/pages/StartSurvey';
+import Application from './components/admin/pages/Application';
+import ViewApplicantDetails from './components/admin/pages/ViewApplicantDetails';
+import Apply from './components/tenant/pages/Apply';
 
 function App() {
   return (
@@ -50,6 +53,8 @@ function App() {
           <Route path='/admin/updateuser/:id' element={<EditUser />} />
           <Route path='/admin/addchoice' element={<CreateChoice />} />
           <Route path='/admin/answers/:id' element={<ViewAnswersDetails />} />
+          <Route path='applications' element={<Application />} />
+          <Route path='applicant/:id' element={<ViewApplicantDetails />} />
           {/* <Route path='saveyschedure/work' element={<SurveyWork />} /> */}
           <Route path='tenants' element={<Tenants />} />
           <Route path='attendance' element={<Attendance />} />
@@ -59,6 +64,7 @@ function App() {
         {/* Tenant Routes */}
         <Route path='/tenant' element={<Tenant_Layout />}>
           <Route index element={<THome />} />
+          <Route path='applynow' element={<Apply />} />
           <Route path='tenant/survey/:surveyId' element={<SurveyWork />} />
           <Route path='/tenant/notifications' element={<Notifications />} />
           <Route path='/tenant/feedback' element={<Feed_Back />} />

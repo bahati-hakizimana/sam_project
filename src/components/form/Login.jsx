@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import HeroPng from "../../assets/website/cityTower.jpg";
+import Law12 from '../../assets/website/about2minadef.jpeg';
 import { FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -80,21 +80,14 @@ const Login = () => {
                 <input type="checkbox" name="ch" id="ch" className="mr-2" />
                 <span className="text-md">Remember for 30 days</span>
               </div>
-              <Link className="font-bold text-md">Forgot password</Link>
             </div>
             <button
               type="submit"
-              className="w-full bg-blue-800 text-white p-2 rounded-lg mb-6 hover:bg-white hover:text-black hover:border hover:border-gray-300"
+              className="w-full bg-green-800 text-white p-2 rounded-lg mb-6 hover:bg-white hover:text-black hover:border hover:border-gray-300"
             >
               Sign in
             </button>
           </form>
-          <button
-            className="w-full border border-gray-300 text-md p-2 rounded-lg mb-6 hover:bg-blue-800 hover:text-white"
-          >
-            <FaGoogle className="w-6 h-6 inline mr-2" />
-            Sign in with Google
-          </button>
           <div className="text-center text-gray-400">
             Don't have an account?
             <Link to="/signup" className="font-bold text-black hover:text-green-600">Sign up for free</Link>
@@ -102,7 +95,7 @@ const Login = () => {
         </div>
         <div className="relative">
           <img
-            src={HeroPng}
+            src={Law12}
             alt="img"
             className="w-[400px] h-full hidden rounded-r-2xl md:block object-cover"
           />

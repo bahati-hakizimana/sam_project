@@ -14,12 +14,15 @@ const Contact = () => {
                         data-aos="fade-right"
                         className="w-full md:w-1/2 h-[300] sm:h-[450px]">
 
-                        <iframe title='google-maps' src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15949.975096336962!2d30.085668927940382!3d-1.9559207527874414!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca6f9a9f85475%3A0x81d16dcc3c7b2f4b!2sAUCA%20Gishushu%20Campus!5e0!3m2!1sen!2srw!4v1712754924507!5m2!1sen!2srw"
-                            className=' w-full border-0 h-full'
-                            allowFullcSreen="" loading="lazy"
+                        <iframe
+                            title="Ministry of Defense Rwanda Map"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1994.321410938455!2d30.084102299999998!3d-1.9635763999999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca6987666a4d9%3A0x4314345310bb1c4!2sMinistry%20of%20Defence%20of%20Rwanda!5e0!3m2!1sen!2srw!4v1712754924507!5m2!1sen!2srw"
+                            className="w-full border-0 h-full"
+                            allowFullScreen=""
+                            loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade">
-
                         </iframe>
+
 
                     </div>
 
@@ -61,7 +64,7 @@ const Contact = () => {
                                     className=' w-full p-3 focus:outline-none rounded-[5px]'
                                 />
                             </div>
-                            <button className='flex items-center justify-center gap-1 w-full p-3 focus:outline-none rounded-[5px] bg-gray-500 text-white
+                            <button className='flex items-center justify-center gap-1 w-full p-3 focus:outline-none rounded-[5px] bg-green-800 text-white
                              hover:bg-headingColor ease-linear duration-150'>
                                 <i class="ri-mail-send-line text-2xl"></i>Send Message</button>
                         </form>

@@ -41,7 +41,7 @@ const SaveySchedure = () => {
 
   const handleAddSurvey = async () => {
     const { value: formValues } = await Swal.fire({
-      title: 'Create Survey',
+      title: 'Create Exam',
       html: `
         <input id="title" class="swal2-input" placeholder="Title">
         <textarea id="description" class="swal2-textarea" placeholder="Description"></textarea>
@@ -96,7 +96,7 @@ const SaveySchedure = () => {
   
   const handleEditSurvey = async (survey) => {
     const { value: formValues } = await Swal.fire({
-      title: 'Edit Survey',
+      title: 'Edit Exam',
       html: `
         <input id="title" class="swal2-input" placeholder="Title" value="${survey.title}">
         <textarea id="description" class="swal2-textarea" placeholder="Description">${survey.description}</textarea>
@@ -192,14 +192,14 @@ const SaveySchedure = () => {
 
   return (
     <div className="container mx-auto mt-10 p-6">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">Survey List</h1>
+      <h1 className="text-3xl font-bold mb-6 text-gray-800">Exams List</h1>
       {error && <p className="text-red-500 mb-4">{error}</p>}
 
       <button
         onClick={handleAddSurvey}
         className="mb-4 px-4 py-2 bg-blue-500 text-white rounded"
       >
-        Add Survey
+        Add Exam
       </button>
 
       <div className="overflow-x-auto bg-white shadow-md rounded-lg border border-gray-200">
@@ -217,7 +217,7 @@ const SaveySchedure = () => {
           <tbody className="bg-white divide-y divide-gray-300">
             {surveys.length === 0 ? (
               <tr>
-                <td colSpan="4" className="py-4 text-center text-gray-500">No surveys found.</td>
+                <td colSpan="4" className="py-4 text-center text-gray-500">No Exams found.</td>
               </tr>
             ) : (
               surveys.map((survey) => (

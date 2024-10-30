@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <div className=" dark:text-white duration-300 clip-right-diagonal bg-[url('assets/website/Runway.png')] bg-cover ">
+    <div className=" dark:text-white duration-300 clip-right-diagonal bg-[url('assets/website/minadefhero.jpg')] bg-cover ">
       <div className="container min-h-[620px] flex mt-10 sm:mt-0">
         <div className="flex items-center justify-center">
 
@@ -14,22 +14,21 @@ const Hero = () => {
               className="text-4xl sm:text-5xl font-semibold"
               style={{ lineHeight: 1.2 }}
             >
-              Unlocking{" "}
-              <span className=" text-white">Your Offices potential with Office Hub Insight</span>
+              RDF{" "}
+              <span className=" text-white">Umutekano wabanyarwanda niyontego</span>
             </h1>
             <p className=" text-xl capitalize text-white" data-aos="fade-up" data-aos-delay="300">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed, sunt. Obcaecati quod architecto quas corporis accusamus rerum, 
-            aperiam dolore dolorem optio voluptas quae libero quam eveniet vero non, cumque harum!
+           Ndumunyarwand ntewe ishema nokuba umunyarwanda
             </p>
             <Link to="/login">
             <button
               data-aos="fade-up"
               data-aos-delay="500"
               data-aos-offset="0"
-              className="primary-btn"
+              className=" bg-green-700 text-white text-xl rounded-lg px-4 py-1"
               
             >
-              Getstarted
+              Join Now
             </button>
             </Link>
            

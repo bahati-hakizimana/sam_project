@@ -1,7 +1,7 @@
 import React,{useRef,useEffect, useState} from 'react'
 import { HiMenuAlt3, HiMenuAlt1 } from "react-icons/hi";
 import ResponsiveMenu from "./ResponsiveMenu";
-import Logo from "../../assets/website/LOGO.svg";
+import Logo from "../../assets/website/minadeflogo.jpg";
 import DarkMode from "./DarkMode";
 import { Link } from 'react-router-dom';
 
@@ -97,7 +97,7 @@ const Navbar = ({ handleLoginPopup }) => {
                   </Link> */}
               <Link
                    to='/login' 
-                   className="primary-btn"
+                   className="primary-btn bg-green-800 text-white text-xl"
                     // className="text-gray-700 hover:text-gray-900 px-4 py-4 inline-block select-none"
                   >
                     Login

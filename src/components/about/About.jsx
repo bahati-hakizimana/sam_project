@@ -1,5 +1,5 @@
 import React from 'react'
-import Law12 from '../../assets/website/cityTower.jpg';
+import Law12 from '../../assets/website/about2minadef.jpeg';
 
 function About() {
     return (
@@ -33,33 +33,35 @@ function About() {
                             {/* <h1 className="text-xl md:text-xl ">
                                 Empowe Africa Now develops and maintains its products and services to be enterprise grade.
                             </h1> */}
-                            <h2 className=" text-2xl">OfficeHub</h2>
+                            <h2 className=" text-2xl">MOD</h2>
                             <p className="text-sm  dark:text-slate-400">
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                Optio voluptatem quo quas voluptatum dolore itaque libero cum! Molestias laudantium
-                                iste sint sunt ab doloribus saepe totam explicabo nihil. Vel, consectetur.
+                                The overall goal of the Ministry of Defence is to generate,
+                                employ and sustain combat-ready, integrated and rapidly deployable
+                                Defence Force, capable of quick assemblage to meet varying contingencies
+                                both at home and abroad.
                             </p>
                             <div>
                                 <h2 className=" text-2xl">Vision</h2>
                                 <p className="text-sm  dark:text-slate-400">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Tempora totam voluptate nemo ipsam ad, maiores rerum incidunt?
-                                    Qui, iste facere praesentium non inventore
-                                    et reprehenderit quos, maxime aut beatae magnam.
+                                    The mission of the Ministry of Defence is the conduct of defence
+                                    in terms of protecting Rwanda’s interests, territorial integrity,
+                                    vital resources, her people and shared values under the ambit of
+                                    the Constitution and International Law.
                                 </p>
                             </div>
                             <div>
 
                                 <p className="text-sm  dark:text-slate-400">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Tempora totam voluptate nemo ipsam ad, maiores rerum incidunt?
+                                    Determining the extent to which the nation’s strategic
+                                    interests may be defended especially when it involves possible
+                                    employment of the Defence Force, and advise government accordingly;
                                 </p>
                                 <h2 className=" text-2xl">Mission</h2>
                                 <p className="text-sm  dark:text-slate-400">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Tempora totam voluptate nemo ipsam ad, maiores rerum incidunt?
-                                    Qui, iste facere praesentium non inventore
-                                    et reprehenderit quos, maxime aut beatae magnam.
+                                    Participating in building and maintaining trust
+                                    amongst other nations. The MoD seeks to implement
+                                    this through defence diplomacy, and to play an effective
+                                    role in support of regional and international organizations.
                                 </p>
                             </div>
                             {/* <div className="space-x-4">

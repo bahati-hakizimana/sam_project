@@ -45,7 +45,7 @@ function SurveyWork() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Surveys</h1>
+      <h1 className="text-2xl font-bold mb-4">Exams</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {surveys.map((survey) => (
           <div key={survey.id} className="bg-white shadow-md rounded-lg p-4">
@@ -60,7 +60,7 @@ function SurveyWork() {
               to={`/tenant/start-survey/${survey.id}`}
               className="text-white px-4 py-1 rounded-lg hover:text-blue-700 bg-blue-900 mt-4 inline-block"
             >
-              Start Survey
+              Start exam
             </Link>
           </div>
         ))}

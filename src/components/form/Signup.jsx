@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import HeroPng from "../../assets/website/cityTower.jpg";
+import Law12 from '../../assets/website/about2minadef.jpeg';
 import { FaGoogle } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -115,7 +115,7 @@ const Signup = () => {
             </div>
             <button
               type="submit"
-              className={`w-full bg-blue-800 text-white p-2 rounded-lg mb-6 hover:bg-blue-700 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`w-full bg-green-800 text-white p-2 rounded-lg mb-6 hover:bg-blue-700 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
               disabled={loading}
             >
               {loading ? 'Signing up...' : 'Sign up'}
@@ -128,7 +128,7 @@ const Signup = () => {
         {/* right side */}
         <div className="relative">
           <img
-            src={HeroPng}
+            src={Law12}
             alt="img"
             className="w-[400px] h-full hidden rounded-r-2xl md:block object-cover"
           />

@@ -6,7 +6,7 @@ import { TbReportAnalytics } from 'react-icons/tb';
 import { IoIosArrowDown, IoIosArrowForward } from 'react-icons/io';
 import { GrSchedules } from 'react-icons/gr';
 import { Link } from 'react-router-dom';
-import Logo from '../../assets/website/LOGO.svg'; 
+import Logo from '../../assets/website/minadeflogo.jpg'; 
 
 function Sidebar() {
   const [activeLink, setActiveLink] = useState(null);
@@ -24,24 +24,25 @@ function Sidebar() {
     { id: 1, name: 'Dashboard', path: '/admin', icon: <MdDashboard /> },
     {
       id: 2,
-      name: 'SaveySchedure',
+      name: 'Exam',
       path: '#',
       icon: <GrSchedules />,
       children: [
-        { id: 21, name: 'Surveys', path: '/admin/saveyschedure' },
+        { id: 21, name: 'Exams', path: '/admin/saveyschedure' },
         { id: 22, name: 'Questions', path: '/admin/saveyschedure/questions' },
         { id: 23, name: 'Answers', path: '/admin/saveyschedure/answers' },
         { id: 24, name: 'Choices', path: '/admin/saveyschedure/choices' },
       ],
     },
     { id: 3, name: 'Users', path: '/admin/users', icon: <FaUsers /> },
-    { id: 4, name: 'Notifications', path: '/admin/notifications', icon: <MdOutlineNotificationsActive /> },
+    { id: 4, name: 'Updates', path: '/admin/notifications', icon: <MdOutlineNotificationsActive /> },
     { id: 5, name: 'Feedback', path: 'feedbacks', icon: <GiParkBench /> },
+    { id: 5, name: 'Applications', path: '/admin/applications', icon: <GrSchedules /> },
     // { id: 6, name: 'Report', path: '/admin/report', icon: <TbReportAnalytics /> },
   ];
 
   return (
-    <div className='w-16 md:w-56 fixed left-0 top-0 z-10 border-r h-screen pt-8 px-4 bg-blue-950 shadow-md'>
+    <div className='w-16 md:w-56 fixed left-0 top-0 z-10 border-r h-screen pt-8 px-4 bg-green-800 shadow-md'>
       <div className='mb-8 flex justify-center md:block bg-white'>
         <img src={Logo} alt='Logo' className='w-10 md:w-20' />
       </div>

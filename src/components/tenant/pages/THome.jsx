@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const ITEMS_PER_PAGE = 3;
 
@@ -76,18 +77,19 @@ function Notifications() {
               <div className="text-gray-700 text-sm mb-2">
                 {new Date(notification.created_date).toLocaleString()}
               </div>
-              <p className="text-gray-900 text-lg">{notification.description}</p>
+              <p className="text-gray-900 text-lg mb-4">{notification.description}</p>
+              <Link className=' mt-4 rounded-lg px-4 py-1 text-white bg-green-800' to="/tenant/applynow">Apply Now</Link>
             </div>
           ))
         )}
+        
       </div>
-
       {/* Pagination Controls */}
       <div className="flex justify-center mt-4">
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg mx-2"
+          className="px-4 py-2 bg-green-800 text-white rounded-lg mx-2"
         >
           Previous
         </button>
@@ -97,7 +99,7 @@ function Notifications() {
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg mx-2"
+          className="px-4 py-2 bg-green-800 text-white rounded-lg mx-2"
         >
           Next
         </button>

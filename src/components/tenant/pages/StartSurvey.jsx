@@ -120,7 +120,7 @@ function StartSurvey() {
 
   return (
     <div className="container mx-auto mt-10 px-4">
-      <h1 className="text-2xl font-bold mb-4">Start Survey</h1>
+      <h1 className="text-2xl font-bold mb-4">Start test</h1>
       {error && <p className="text-red-500">{error}</p>}
 
       <form onSubmit={handleSubmit}>
@@ -157,7 +157,7 @@ function StartSurvey() {
               <p>No questions available on this page.</p>
             )
           ) : (
-            <p>No questions and answers related to this survey.</p>
+            <p>No questions and answers related to this exam.</p>
           )}
         </div>
 

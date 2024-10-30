@@ -236,7 +236,7 @@ function Survey_Questions() {
 
   return (
     <div className="container mx-auto mt-10 p-4">
-      <h1 className="text-2xl font-bold mb-4">Survey Questions List</h1>
+      <h1 className="text-2xl font-bold mb-4"> Questions List</h1>
       {error && <p className="text-red-500 mb-4">{error}</p>}
       <div className='flex justify-end'>
         <div className=' flex gap-4'>
@@ -260,7 +260,7 @@ function Survey_Questions() {
           <thead className="bg-blue-500 text-white">
             <tr>
               <th className="py-3 px-6 text-left text-sm font-semibold">ID</th>
-              <th className="py-3 px-6 text-left text-sm font-semibold">Survey ID</th>
+              <th className="py-3 px-6 text-left text-sm font-semibold">Exam ID</th>
               <th className="py-3 px-6 text-left text-sm font-semibold">Question Text</th>
               <th className="py-3 px-6 text-left text-sm font-semibold">Created At</th>
               <th className="py-3 px-6 text-left text-sm font-semibold">Updated At</th>

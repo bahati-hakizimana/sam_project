@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const ITEMS_PER_PAGE = 3;
 
@@ -70,6 +71,7 @@ function Notifications() {
             </div>
           ))
         )}
+        <Link className=' rounded-lg px-4 py-1 bg-green-800' to="/tenant/applynow">Apply Now</Link>
       </div>
 
       {/* Pagination Controls */}

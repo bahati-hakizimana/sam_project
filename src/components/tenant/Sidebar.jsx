@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { MdDashboard } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import Logo from '../../assets/website/LOGO.svg';
+import Logo from '../../assets/website/minadeflogo.jpg';
 import { MdDynamicFeed } from "react-icons/md";
 import { FaRegSave } from "react-icons/fa";
 import { MdForum } from "react-icons/md";
@@ -20,7 +20,8 @@ function Sidebar() {
   const Sidebar_Links = [
     { id: 2, name: 'Home', path: '/tenant', icon: <MdDashboard /> },
     { id: 2, name: 'Feedback', path: '/tenant/feedback', icon: <MdDynamicFeed /> },
-    { id: 3, name: 'Saveys', path: 'tenant/survey/:surveyId', icon: <FaRegSave /> },
+    { id: 3, name: 'Exams', path: 'tenant/survey/:surveyId', icon: <FaRegSave /> },
+    { id: 3, name: 'Apply', path: '/tenant/applynow', icon: <FaRegSave /> },
     // { id: 4, name: 'Notifications', path: '/tenant/notifications', icon: <MdForum /> },
     // { id: 4, name: 'FAQs', path: '/tenant/faqs', icon: <FaQuestionCircle /> },
     // { id: 4, name: 'SupportResourse', path: '/tenant/resourse', icon: <TfiSupport/> },
@@ -29,7 +30,7 @@ function Sidebar() {
 
   return (
 
-    <div className='w-16 md:w-56 fixed left-0 top-0 z-10 border-r h-screen pt-8 px-4 bg-blue-950 shadow-md'>
+    <div className='w-16 md:w-56 fixed left-0 top-0 z-10 border-r h-screen pt-8 px-4 bg-green-800 shadow-md'>
     <div className='mb-8 flex justify-center md:block bg-white'>
         <img src={Logo} alt='Logo' className='w-10 md:w-20' />
       </div>
