@@ -29,6 +29,8 @@ import StartSurvey from './components/tenant/pages/StartSurvey';
 import Application from './components/admin/pages/Application';
 import ViewApplicantDetails from './components/admin/pages/ViewApplicantDetails';
 import Apply from './components/tenant/pages/Apply';
+import EditApplications from './components/admin/pages/EditApplications';
+import ViewApplication from './components/tenant/pages/ViewApplication';
 
 function App() {
   return (
@@ -51,10 +53,11 @@ function App() {
           <Route path='saveyschedure/answers' element={<Survey_Answer />} />
           <Route path='saveyschedure/choices' element={<Survey_Choice />} />
           <Route path='/admin/updateuser/:id' element={<EditUser />} />
+          <Route path='applicant/:id' element={<ViewApplicantDetails />} />
           <Route path='/admin/addchoice' element={<CreateChoice />} />
           <Route path='/admin/answers/:id' element={<ViewAnswersDetails />} />
           <Route path='applications' element={<Application />} />
-          <Route path='applicant/:id' element={<ViewApplicantDetails />} />
+          <Route path='updateapplicant/:id' element={<EditApplications />} />
           {/* <Route path='saveyschedure/work' element={<SurveyWork />} /> */}
           <Route path='tenants' element={<Tenants />} />
           <Route path='attendance' element={<Attendance />} />
@@ -68,6 +71,7 @@ function App() {
           <Route path='tenant/survey/:surveyId' element={<SurveyWork />} />
           <Route path='/tenant/notifications' element={<Notifications />} />
           <Route path='/tenant/feedback' element={<Feed_Back />} />
+          <Route path='viewapplications/status' element={<ViewApplication />} />
           <Route path="/tenant/start-survey/:surveyId" element={<StartSurvey />} />
         </Route>
       </Routes>

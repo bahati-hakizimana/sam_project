@@ -3,7 +3,7 @@ import { MdAutoDelete } from 'react-icons/md';
 import { FaEdit } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
-const Application = () => {
+const ViewApplication = () => {
   const [applicants, setApplicants] = useState([]);
   const [error, setError] = useState(null);
 
@@ -19,9 +19,8 @@ const Application = () => {
           },
         });
 
-        if (response.ok) {
-            console.log(response)
-        //   throw new Error(`HTTP error! status: ${response.status}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const data = await response.json();
@@ -55,9 +54,35 @@ const Application = () => {
     }
   };
 
+  const getStatusStyle = (status) => {
+    switch (status) {
+      case 'approved':
+        return 'bg-green-500 text-white';  // Green background for approved
+      case 'denied':
+        return 'bg-red-500 text-white';  // Red background for denied
+      case 'pending':
+        return 'bg-yellow-500 text-white';  // Yellow background for pending
+      default:
+        return 'bg-gray-300 text-gray-700';  // Default gray if status is unknown
+    }
+  };
+
+  const getEmoji = (status) => {
+    switch (status) {
+      case 'approved':
+        return '😊';  // Smiley face for approved
+      case 'denied':
+        return '😞';  // Sad face for denied
+      case 'pending':
+        return '⏳';  // Hourglass for pending
+      default:
+        return '';
+    }
+  };
+
   return (
     <div className="container mx-auto mt-10">
-      <h1 className="text-2xl font-bold mb-4">Applicant List</h1>
+      <h1 className="text-2xl font-bold mb-4">View Applicants</h1>
       {error && <p className="text-red-500">{error}</p>}
 
       <div className="overflow-x-auto">
@@ -82,17 +107,14 @@ const Application = () => {
                   <td className="py-4 px-6 text-sm text-gray-500">{applicant.first_name}</td>
                   <td className="py-4 px-6 text-sm text-gray-500">{applicant.last_name}</td>
                   <td className="py-4 px-6 text-sm text-gray-500">{applicant.email}</td>
-                  <td className="py-4 px-6 text-sm text-gray-500">{applicant.status}</td>
+                  <td className="py-4 px-6 text-sm">
+                    <div className={`inline-flex items-center justify-center w-20 h-8 rounded-full ${getStatusStyle(applicant.status)} space-x-2`}>
+                      <span className="text-xs">{getEmoji(applicant.status)}</span>
+                      <span className="text-xs">{applicant.status}</span>
+                    </div>
+                  </td>
                   <td className="py-4 px-6 text-sm text-gray-500 flex space-x-2">
-                    <Link to={`/admin/applicant/${applicant.id}`} className="text-gray-700 hover:text-blue-500">
-                      View Details
-                    </Link>
-                    <Link to={`/admin/updateapplicant/${applicant.id}`} className="text-gray-700 hover:text-green-500">
-                      <FaEdit className="text-xl" />
-                    </Link>
-                    <button onClick={() => handleDelete(applicant.id)} className="text-gray-700 hover:text-red-500">
-                      <MdAutoDelete className="text-xl" />
-                    </button>
+                    {/* Action buttons here */}
                   </td>
                 </tr>
               ))
@@ -104,4 +126,4 @@ const Application = () => {
   );
 };
 
-export default Application;
+export default ViewApplication;
